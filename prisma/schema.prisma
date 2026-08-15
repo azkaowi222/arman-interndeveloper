@@ -1,0 +1,153 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =========================
+// ENUMS
+// =========================
+
+enum UserRole {
+  JOB_SEEKER
+  COMPANY
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  FREELANCE
+}
+
+enum ApplicationStatus {
+  APPLIED
+  REVIEWING
+  SHORTLISTED
+  REJECTED
+  ACCEPTED
+}
+
+// =========================
+// USERS
+// =========================
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  password     String
+  role         UserRole
+
+  company      Company?
+  applications Application[]
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt @default(now())
+
+  @@map("users")
+}
+
+// =========================
+// COMPANIES
+// =========================
+
+model Company {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique
+
+  companyName String
+  description String?
+  location    String?
+  website     String?
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobs        Job[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("companies")
+}
+
+// =========================
+// JOBS
+// =========================
+
+model Job {
+  id          Int           @id @default(autoincrement())
+  companyId   Int
+
+  title       String
+  description String
+  location    String
+
+  salaryMin   Decimal?      @db.Decimal(15, 2)
+  salaryMax   Decimal?      @db.Decimal(15, 2)
+
+  jobType     JobType
+
+  company     Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  applications Application[]
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([companyId])
+  @@map("jobs")
+}
+
+// =========================
+// APPLICATIONS
+// =========================
+
+model Application {
+  id            Int                        @id @default(autoincrement())
+  jobId         Int
+  userId        Int
+
+  status        ApplicationStatus          @default(APPLIED)
+
+  appliedAt     DateTime                   @default(now())
+  updatedAt     DateTime                   @updatedAt
+
+  job           Job                        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user          User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  statusHistory ApplicationStatusHistory[]
+
+  // Satu user tidak boleh melamar
+  // pekerjaan yang sama lebih dari sekali
+  @@unique([userId, jobId])
+
+  @@index([jobId])
+  @@index([userId])
+  @@map("applications")
+}
+
+// =========================
+// APPLICATION STATUS HISTORY
+// =========================
+
+model ApplicationStatusHistory {
+  id            Int               @id @default(autoincrement())
+  applicationId Int
+
+  status        ApplicationStatus
+
+  createdAt     DateTime          @default(now())
+
+  application   Application       @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@map("application_status_histories")
+}
