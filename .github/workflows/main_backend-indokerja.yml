@@ -20,7 +20,7 @@ jobs:
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
-        working_directory: ./backend
+        working-directory: ./backend
         with:
           node-version: "24.x"
 
