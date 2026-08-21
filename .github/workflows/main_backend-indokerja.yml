@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./backend
-        run: npm install
+        run: npm install --include=dev
 
       - name: Upload backend artifact
         uses: actions/upload-artifact@v4
