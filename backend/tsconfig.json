@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ES2023",
+    "target": "ES2022",
+    "module": "CommonJS",
+    "rootDir": ".",
+    "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
-    "ignoreDeprecations": "6.0",
-    "outDir": "./dist",
-    "rootDir": "."
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0"
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]
