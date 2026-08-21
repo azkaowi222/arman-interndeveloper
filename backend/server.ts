@@ -21,6 +21,9 @@ app.use("/api/jobs", jobsRoute);
 app.use("/api/applications", applicationsRoute);
 app.use("/api/companie", companiesRoute);
 app.use("/api/auth", authsRoute);
+app.get("/test", (req, res) => {
+  return res.status(200).send("OK");
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
