@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: "24.x"
 
-      - name: npm install, build, and test
+      - name: npm install
         run: npm install
 
       - name: Upload artifact for deployment job
