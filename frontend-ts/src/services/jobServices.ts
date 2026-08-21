@@ -17,3 +17,25 @@ export const getAllJobs = async (): Promise<Job[]> => {
     throw Error(getErrorMessage(error));
   }
 };
+
+export const createJob = async (job: Job): Promise<string> => {
+  console.log(job);
+  try {
+    const response = await fetch(`${backendUrl}/jobs/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(job),
+      credentials: "include",
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw Error(data["message"]);
+    }
+    return data["message"] as string;
+  } catch (error) {
+    throw Error(getErrorMessage(error));
+  }
+};

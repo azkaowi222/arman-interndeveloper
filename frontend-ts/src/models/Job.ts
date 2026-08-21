@@ -8,14 +8,14 @@ export type JobType =
   | "FREELANCE";
 
 export interface Job {
-  id: number;
+  id?: number;
   companyId: number;
-  company: Company;
+  company?: Company;
   title: string;
   description: string;
   location: string;
   salaryMin: number;
   salaryMax: number;
   jobType: JobType;
-  createdAt: string;
+  createdAt?: string;
 }

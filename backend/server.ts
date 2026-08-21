@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
+    origin: "http://70.153.148.212:5173",
     credentials: true,
   }),
 );

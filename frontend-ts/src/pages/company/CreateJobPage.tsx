@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CompanyLayout from "../../components/company/CompanyLayout";
+import { createJob } from "../../services/jobServices";
+import type { Job, JobType } from "../../models/Job";
 
 function CreateJobPage() {
   const navigate = useNavigate();
+  const { companyId } = useParams();
 
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -13,13 +16,24 @@ function CreateJobPage() {
   const [description, setDescription] = useState("");
   const [requirements, setRequirements] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
-
-    // Nanti:
-    // await createJob(...)
-
-    navigate("/company/jobs");
+    try {
+      const job: Job = {
+        companyId: Number(companyId),
+        title,
+        description,
+        location,
+        jobType: jobType as JobType,
+        salaryMin: +salaryMin,
+        salaryMax: +salaryMax,
+      };
+      const message = await createJob(job);
+      console.log(message);
+      navigate("/company/jobs");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -149,7 +163,7 @@ function CreateJobPage() {
           </section>
 
           {/* Requirements */}
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          {/* <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-lg font-bold text-slate-900">Persyaratan</h2>
 
             <p className="mt-1 text-sm text-slate-500">
@@ -166,7 +180,7 @@ function CreateJobPage() {
               required
               className="mt-5 w-full resize-none rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
             />
-          </section>
+          </section> */}
 
           {/* Actions */}
           <div className="flex flex-col-reverse justify-end gap-3 sm:flex-row">

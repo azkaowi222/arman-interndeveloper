@@ -73,7 +73,7 @@ function CompanyJobsPage() {
           </div>
 
           <Link
-            to="/company/jobs/create"
+            to={`/company/jobs/create/${jobs[0].companyId}`}
             className="rounded-xl bg-blue-600 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-blue-700"
           >
             + Buat Lowongan
