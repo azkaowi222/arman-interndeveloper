@@ -21,12 +21,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24.x"
-          cache: "npm"
-          cache-dependency-path: backend/package-lock.json
 
-      - name: Install backend dependencies
+      - name: Install dependencies
         working-directory: ./backend
-        run: npm install
+        run: npm ci
+
+      - name: Build backend
+        working-directory: ./backend
+        run: npm run build
 
       - name: Upload backend artifact
         uses: actions/upload-artifact@v4
