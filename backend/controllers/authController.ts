@@ -55,6 +55,7 @@ export const login = async (req: Request, res: Response) => {
       success: true,
       message: "Login Successfull",
       user: {
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -123,7 +124,6 @@ export const logout = (req: Request, res: Response) => {
 
     res.clearCookie("token", {
       httpOnly: true,
-      maxAge: 3600000,
       sameSite: "none",
       secure: true,
     });
