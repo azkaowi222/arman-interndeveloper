@@ -35,6 +35,14 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
+    const companie = await prisma.company.findUnique({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    console.log({ companie });
+
     const token = jwt.sign(
       {
         id: user.id,
@@ -59,6 +67,7 @@ export const login = async (req: Request, res: Response) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        companie,
       },
       token,
     });

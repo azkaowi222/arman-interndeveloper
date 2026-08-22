@@ -43,6 +43,11 @@ export const getJobsByCompaniId = async (
         message: "Id company must be provided",
       });
     }
+    const company = await prisma.company.findUnique({
+      where: {
+        id: +companyId,
+      },
+    });
     const jobs = await prisma.job.findMany({
       include: {
         company: true,
@@ -69,8 +74,11 @@ export const getJobsByCompaniId = async (
       });
     }
 
+    console.log(company);
+
     return res.status(200).json({
       success: true,
+      company: company,
       jobsWithApplicant,
     });
   } catch (error) {

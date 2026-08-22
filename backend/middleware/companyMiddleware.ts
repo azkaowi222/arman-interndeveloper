@@ -28,13 +28,25 @@ export const companyMiddleware = async (
       },
     });
 
+    if (user === null || !user) {
+      throw Error("Invalid token");
+    }
+
+    const companie = await prisma.company.findUnique({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    console.log(companie);
+
     if (user?.role !== "COMPANY") {
       return res.status(403).json({
         success: false,
         message: "Forbidden",
       });
     }
-    req.companyId = decoded.id;
+    req.companyId = companie!.id;
     next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {

@@ -1,17 +1,13 @@
 import { prisma } from "../lib/prisma";
 import { Request, Response } from "express";
+import { CompanieRequest } from "../middleware/companyMiddleware";
 
-export const addJob = async (req: Request, res: Response) => {
-  const {
-    companyId,
-    title,
-    description,
-    location,
-    jobType,
-    salaryMin,
-    salaryMax,
-  } = req.body;
+export const addJob = async (req: CompanieRequest, res: Response) => {
+  const { title, description, location, jobType, salaryMin, salaryMax } =
+    req.body;
+  const companyId = req.companyId;
 
+  
   try {
     if (!companyId || !title || !description || !location || !jobType) {
       return res.status(400).json({
@@ -53,6 +49,7 @@ export const getAllJobs = async (req: Request, res: Response) => {
         company: true,
       },
     });
+    // console.log(jobs);
     return res.status(200).json({
       success: true,
       jobs,

@@ -6,10 +6,11 @@ import {
   getJobsById,
   updateJob,
 } from "../controllers/jobsController";
+import { companyMiddleware } from "../middleware/companyMiddleware";
 
 const route: Router = express.Router();
 
-route.post("/create", addJob);
+route.post("/create", companyMiddleware, addJob);
 route.get("/", getAllJobs);
 route.get("/:jobId", getJobsById);
 route.patch("/:jobId", updateJob);
