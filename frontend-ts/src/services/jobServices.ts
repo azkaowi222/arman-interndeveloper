@@ -25,7 +25,12 @@ export const createJob = async (job: Job): Promise<string> => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(job),
+      body: JSON.stringify({
+        title: job.title,
+        description: job.description,
+        location: job.location,
+        jobType: job.jobType,
+      }),
       credentials: "include",
     });
 
