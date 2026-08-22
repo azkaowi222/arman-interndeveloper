@@ -29,6 +29,7 @@ export const processLogin = async (
       email: data.user.email,
       name: data.user.name,
       role: data.user.role,
+      company: data.user.companie,
     };
     return user;
   } catch (error) {

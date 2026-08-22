@@ -19,7 +19,6 @@ export const getAllJobs = async (): Promise<Job[]> => {
 };
 
 export const createJob = async (job: Job): Promise<string> => {
-  console.log(job);
   try {
     const response = await fetch(`${backendUrl}/jobs/create`, {
       method: "POST",

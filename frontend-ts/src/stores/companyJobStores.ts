@@ -1,24 +1,31 @@
 import { create } from "zustand";
 import type { CompanyJob } from "../models/CompanyJob";
+import type { Company } from "../models/Company";
 
-interface companyJobsState {
+interface CompanyJobsState {
+  company: Company | null;
   companyJobs: CompanyJob[];
-  setCompanyJobs: (companyJobs: CompanyJob[]) => void;
   isLoading: boolean;
+
+  setCompany: (company: Company) => void;
+  setCompanyJobs: (companyJobs: CompanyJob[]) => void;
   setIsLoading: (isLoading: boolean) => void;
 }
 
-export const useCompanyJobStores = create<companyJobsState>((set) => ({
+export const useCompanyJobStores = create<CompanyJobsState>((set) => ({
+  company: null,
   companyJobs: [],
   isLoading: true,
-  setCompanyJobs: (companyJobs: CompanyJob[]) => {
-    set({
-      companyJobs: companyJobs,
-    });
+
+  setCompany: (company) => {
+    set({ company });
   },
-  setIsLoading: (isLoading: boolean) => {
-    set({
-      isLoading: isLoading,
-    });
+
+  setCompanyJobs: (companyJobs) => {
+    set({ companyJobs });
+  },
+
+  setIsLoading: (isLoading) => {
+    set({ isLoading });
   },
 }));

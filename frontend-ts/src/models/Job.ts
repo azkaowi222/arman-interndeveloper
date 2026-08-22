@@ -9,7 +9,7 @@ export type JobType =
 
 export interface Job {
   id?: number;
-  companyId: number;
+  companyId?: number;
   company?: Company;
   title: string;
   description: string;

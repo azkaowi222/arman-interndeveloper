@@ -2,7 +2,7 @@ import type { CompanyJob } from "../models/CompanyJob";
 import { getErrorMessage } from "../utils/errorMessage";
 import backendUrl from "./apiService";
 
-export const getAllCompanyJobs = async (): Promise<CompanyJob[]> => {
+export const getAllCompanyJobs = async (): Promise<Record<string, any>> => {
   try {
     const response = await fetch(`${backendUrl}/companie/jobs`, {
       credentials: "include",
@@ -13,6 +13,8 @@ export const getAllCompanyJobs = async (): Promise<CompanyJob[]> => {
     if (!response.ok) {
       throw Error(data["message"]);
     }
+
+    const company = data.company;
 
     const formattedCompanyJobs: CompanyJob[] = data.jobsWithApplicant.map(
       (job: any) => ({
@@ -30,7 +32,10 @@ export const getAllCompanyJobs = async (): Promise<CompanyJob[]> => {
       }),
     );
 
-    return formattedCompanyJobs;
+    return {
+      company,
+      formattedCompanyJobs,
+    };
   } catch (error) {
     throw Error(getErrorMessage(error));
   }

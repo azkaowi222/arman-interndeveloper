@@ -20,8 +20,8 @@ function LoginPage() {
 
     try {
       const userLogin: User = await processLogin(email, password);
-      console.log("setUser jaalan");
       setUser(userLogin);
+      console.log(userLogin);
     } catch (error) {
       const err = getErrorMessage(error);
       setErrMsg(err);

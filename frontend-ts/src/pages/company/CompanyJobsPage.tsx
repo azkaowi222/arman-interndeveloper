@@ -38,14 +38,18 @@ import { formattedDate } from "../../utils/formatDate";
 
 function CompanyJobsPage() {
   const setCompanyJobs = useCompanyJobStores((state) => state.setCompanyJobs);
+  const setCompany = useCompanyJobStores((state) => state.setCompany);
+  const company = useCompanyJobStores((state) => state.company);
   const isLoding = useCompanyJobStores((state) => state.isLoading);
   const setIsLoding = useCompanyJobStores((state) => state.setIsLoading);
   const jobs = useCompanyJobStores((state) => state.companyJobs);
 
   const processGetAllJobs = async (): Promise<void> => {
     try {
-      const companyJobs: CompanyJob[] = await getAllCompanyJobs();
+      const data = await getAllCompanyJobs();
+      const companyJobs = data.formattedCompanyJobs as CompanyJob[];
       setCompanyJobs(companyJobs);
+      setCompany(data.company);
     } catch (error) {
       console.error(error);
     } finally {
@@ -65,7 +69,9 @@ function CompanyJobsPage() {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Lowongan Saya</h1>
+            <h1 className="text-2xl font-bold text-slate-900">
+              {company?.companyName}
+            </h1>
 
             <p className="mt-1 text-sm text-slate-500">
               Kelola semua lowongan pekerjaan perusahaan.
