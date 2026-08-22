@@ -49,7 +49,7 @@ export const login = async (req: Request, res: Response) => {
       httpOnly: true,
       maxAge: 3600000,
       sameSite: "none",
-      secure: false,
+      secure: true,
     });
 
     return res.status(200).json({
