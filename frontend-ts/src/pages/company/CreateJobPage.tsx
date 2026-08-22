@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CompanyLayout from "../../components/company/CompanyLayout";
 import { createJob } from "../../services/jobServices";
 import type { Job, JobType } from "../../models/Job";
+import useUserStore from "../../stores/userStore";
 
 function CreateJobPage() {
   const navigate = useNavigate();
-  const { companyId } = useParams();
 
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -14,13 +14,13 @@ function CreateJobPage() {
   const [salaryMin, setSalaryMin] = useState("");
   const [salaryMax, setSalaryMax] = useState("");
   const [description, setDescription] = useState("");
-  const [requirements, setRequirements] = useState("");
+  const userId = useUserStore((state) => state.userId);
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     try {
       const job: Job = {
-        companyId: Number(companyId),
+        companyId: Number(userId),
         title,
         description,
         location,

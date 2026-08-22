@@ -1,8 +1,8 @@
 import { useState } from "react";
-import useUserStore from "../../../stores/userStore";
-import type { User } from "../../../models/User";
-import { getErrorMessage } from "../../../utils/errorMessage";
-import { processLogin } from "../../../services/authServices";
+import useUserStore from "../../stores/userStore";
+import type { User } from "../../models/User";
+import { getErrorMessage } from "../../utils/errorMessage";
+import { processLogin } from "../../services/authServices";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,6 +20,7 @@ function LoginPage() {
 
     try {
       const userLogin: User = await processLogin(email, password);
+      console.log("setUser jaalan");
       setUser(userLogin);
     } catch (error) {
       const err = getErrorMessage(error);

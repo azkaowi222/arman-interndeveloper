@@ -72,7 +72,7 @@ function ApplicationsPage() {
                 <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                   <div className="flex gap-4">
                     <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-xl font-bold text-blue-600">
-                      {application.job.company.companyName.charAt(0)}
+                      {application.job.company?.companyName.charAt(0)}
                     </div>
 
                     <div>
@@ -81,7 +81,7 @@ function ApplicationsPage() {
                       </h2>
 
                       <p className="mt-1 text-sm font-medium text-slate-600">
-                        {application.job.company.companyName}
+                        {application.job.company?.companyName}
                       </p>
                     </div>
                   </div>

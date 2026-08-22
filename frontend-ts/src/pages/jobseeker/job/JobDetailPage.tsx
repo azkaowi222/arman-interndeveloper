@@ -80,7 +80,7 @@ function JobDetailPage() {
     );
   }
 
-  const alreadyApplied = hasApplied(job.id);
+  const alreadyApplied = hasApplied(job.id!);
 
   const handleApply = async () => {
     if (alreadyApplied) {
@@ -89,7 +89,7 @@ function JobDetailPage() {
 
     try {
       const applicationForm: ApplicationForm = {
-        jobId: job.id,
+        jobId: job.id!,
         status: "APPLIED",
       };
       const application: Application = await apply(applicationForm);
@@ -110,7 +110,7 @@ function JobDetailPage() {
     navigate("/applications");
   };
 
-  const date = formattedDate(job.createdAt);
+  const date = formattedDate(job.createdAt!);
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
@@ -129,12 +129,12 @@ function JobDetailPage() {
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-start gap-5">
               <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-3xl font-bold text-blue-600">
-                {job.company.companyName.charAt(0)}
+                {job.company?.companyName.charAt(0)}
               </div>
 
               <div>
                 <p className="text-sm font-medium text-blue-600">
-                  {job.company.companyName}
+                  {job.company?.companyName}
                 </p>
 
                 <h1 className="mt-1 text-3xl font-bold text-slate-900">
@@ -204,7 +204,7 @@ function JobDetailPage() {
                 </p>
 
                 <p className="mt-1 font-medium text-slate-700">
-                  {job.company.companyName}
+                  {job.company?.companyName}
                 </p>
               </div>
 

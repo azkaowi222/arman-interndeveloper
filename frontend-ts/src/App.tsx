@@ -1,4 +1,4 @@
-import LoginPage from "./pages/jobseeker/auth/LoginPage";
+import LoginPage from "./pages/auth/LoginPage";
 import HomePage from "./pages/jobseeker/home/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -68,7 +68,7 @@ function App() {
 
           <Route path="/company/jobs" element={<CompanyJobsPage />} />
 
-          <Route path="/company/jobs/create/:companyId" element={<CreateJobPage />} />
+          <Route path="/company/jobs/create" element={<CreateJobPage />} />
 
           <Route
             path="/company/jobs/:id/candidates"

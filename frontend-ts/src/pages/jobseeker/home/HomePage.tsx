@@ -105,7 +105,7 @@ function HomePage() {
 
       const matchSearch =
         job.title.toLowerCase().includes(keyword) ||
-        job.company.companyName.toLowerCase().includes(keyword) ||
+        job.company?.companyName.toLowerCase().includes(keyword) ||
         job.location.toLowerCase().includes(keyword);
 
       const matchType = jobType === "ALL" || job.jobType === jobType;
@@ -118,7 +118,7 @@ function HomePage() {
     processGetAllJobs();
   }, []);
 
-  if (isLoading || jobs.length === 0) {
+  if (isLoading) {
     return <p>Loading jobs...</p>;
   }
 

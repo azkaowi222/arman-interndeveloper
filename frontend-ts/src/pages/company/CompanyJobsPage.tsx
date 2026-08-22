@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CompanyLayout from "../../components/company/CompanyLayout";
 import { useEffect } from "react";
 import type { CompanyJob } from "../../models/CompanyJob";
-import { getAllJobs } from "../../services/companyServices";
+import { getAllCompanyJobs } from "../../services/companyServices";
 import { useCompanyJobStores } from "../../stores/companyJobStores";
 import { formattedDate } from "../../utils/formatDate";
 
@@ -44,7 +44,7 @@ function CompanyJobsPage() {
 
   const processGetAllJobs = async (): Promise<void> => {
     try {
-      const companyJobs: CompanyJob[] = await getAllJobs();
+      const companyJobs: CompanyJob[] = await getAllCompanyJobs();
       setCompanyJobs(companyJobs);
     } catch (error) {
       console.error(error);
@@ -73,7 +73,7 @@ function CompanyJobsPage() {
           </div>
 
           <Link
-            to={`/company/jobs/create/${jobs[0].companyId}`}
+            to={`/company/jobs/create/`}
             className="rounded-xl bg-blue-600 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-blue-700"
           >
             + Buat Lowongan

@@ -2,7 +2,7 @@ import type { CompanyJob } from "../models/CompanyJob";
 import { getErrorMessage } from "../utils/errorMessage";
 import backendUrl from "./apiService";
 
-export const getAllJobs = async (): Promise<CompanyJob[]> => {
+export const getAllCompanyJobs = async (): Promise<CompanyJob[]> => {
   try {
     const response = await fetch(`${backendUrl}/companie/jobs`, {
       credentials: "include",
